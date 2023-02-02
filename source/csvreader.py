@@ -22,20 +22,25 @@ class CSVReader:
             self.overwriting_cells()
 
     def creating_dictionary(self):
+        def Error(text):
+            print(text)
+            self.error = True
+
         try:
             for f_row in range(1, len(self.read_file)):
                 for f_column in range(1, len(self.read_file[0])):
+                    if str(str(self.read_file[0][f_column]) + str(self.column[f_row])) in self.cell_dictionary.keys():
+                        Error('Неверный формат ячеек.')
+                        return False
                     if str(self.read_file[0][f_column]).isdigit() or not str(self.column[f_row]).isdigit():
-                        print('Неверный формат ячеек.')
-                        self.error = True
+                        Error('Неверный формат ячеек.')
                         return False
                     else:
                         self.cell_dictionary[str(self.read_file[0][f_column]) + str(self.column[f_row])] = \
                             self.read_file[f_row][f_column]
             return True
         except IndexError:
-            print('Неверный формат таблицы!')
-            self.error = True
+            Error('Неверный формат таблицы.')
             return False
 
     def overwriting_cells(self):
