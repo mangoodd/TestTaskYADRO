@@ -129,6 +129,9 @@ class CSVReader:
         return result
 
     def print_result_in_console(self):
+        """
+        Вывод полученной таблицы в консоль.
+        """
         if not self.error:
             for f_row in self.read_file:
                 print(*f_row, sep=',')
