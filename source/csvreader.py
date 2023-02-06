@@ -22,6 +22,11 @@ class CSVReader:
             self.overwriting_cells()
 
     def creating_dictionary(self):
+        """
+        Создание словаря.
+        Ключ словаря - название ячейки таблицы. Значение - данные ячейки.
+        """
+
         def Error(text):
             print(text)
             self.error = True
