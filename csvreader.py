@@ -1,6 +1,5 @@
 import csv
 import sys
-import os
 
 
 class CSVReader:
@@ -95,11 +94,11 @@ class CSVReader:
                 out_line += input_line[index]
             return out_line
 
-        result = 0
         try:
             if isinstance(string, (int, float, bool)):
                 return string
 
+            # Преобразование строки (замена математических знаков на символ &)
             if '+' in string or '-' in string or '/' in string or '*' in string:
                 result_string, symbol_list = original_string_conversion(string)
                 lst_component = result_string.split('&')
@@ -109,6 +108,7 @@ class CSVReader:
                 else:
                     return str(string)
 
+            # Преобразование элементов ячейки к числовым значениям
             for i in range(len(lst_component)):
                 if str(lst_component[i])[0] == '=':
                     lst_component[i] = lst_component[i][1:]
@@ -119,6 +119,8 @@ class CSVReader:
                     except KeyError:
                         return 'Error'
             out_string = '&'.join(str(component) for component in lst_component)
+
+            # Вычисление результата значения ячейки
             try:
                 out_string = reverse_string_conversion(out_string, symbol_list)
                 result = eval(out_string)
@@ -157,6 +159,6 @@ def console_initialization():
 
 
 if __name__ == '__main__':
-    # console_initialization()
-    f = CSVReader("CSVFiles/file.csv")
-    f.print_result_in_console()
+    console_initialization()
+    # f = CSVReader("CSVFiles/file.csv")
+    # f.print_result_in_console()
